@@ -1,0 +1,40 @@
+{% extends 'admin/base_admin.html.twig' %}
+
+{% block content %}
+	<div class="row">
+		<div class="col-sm">
+			<h3 class="text-center text-uppercase fw-bold">Sửa thông tin tác giả</h3>
+			{% for user in findUser %}
+				<form action="index.php?controller=user&action=edit&id={{user.id}}" method="post">
+					<div class="input-group mt-3 mb-3">
+						<span class="input-group-text" id="lblTgId">Mã tác giả</span>
+						<input type="text" class="form-control" name="id" id="id" value="{{user.id}}" readonly>
+					</div>
+
+					<div class="input-group mt-3 mb-3">
+						<span class="input-group-text" id="lblTgName">Username</span>
+						<input type="text" class="form-control" name="username" id="username" value="{{user.username}}" style="border-top-right-radius: 7px; border-bottom-right-radius:7px">
+					</div>
+
+					<div class="input-group mt-3 mb-3">
+						<span class="input-group-text" id="lblTgName">Password</span>
+						<input type="text" class="form-control" name="password" id="password" value="{{user.password}}" style="border-top-right-radius: 7px; border-bottom-right-radius:7px">
+					</div>
+
+					<div class="input-group mt-3 mb-3">
+						<span class="input-group-text" id="lblTgName">role</span>
+						<select class="form-select" aria-label="Default select example" id="role" name="role" value="<?= $role ?>">
+							{% for enum_role in enum_list %}
+								{% set selected = (enum_role == role) ? 'selected' : '' %}
+								<option value='{{ enum_role }}' {{ selected }}>{{ enum_role }}</option>
+							{% endfor %}
+						</select>
+						<div class="form-group  float-end" style="position:absolute; top:50px; left:1130px">
+							<input type="submit" name="save" value="Lưu lại" class="btn btn-success">
+							<a href="index.php?controller=user&action=list" class="btn btn-warning ">Quay lại</a>
+						</div>
+					{% endfor %}
+				</form>
+			</div>
+		</div>
+	{% endblock %}
